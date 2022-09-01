@@ -45,6 +45,33 @@ namespace InvoiceTotal
             var discountAmount = subtotal * discountPercent;
             var total = subtotal - discountAmount;
 
+            // Get the status of the radio buttons and
+            // Checkboxes and assign them to variables
+            var isSeniorCitizen = chkSeniorCitizen.Checked;
+            var isPremiumCustomer = radPC.Checked;
+
+            // set the senior and premium discount variables
+            var snrDiscount = 0m;
+            var premiumDiscount = 0m;
+
+            // set the snrDiscount variable based on the
+            // value of the isSeniorCitizen variable
+            if (isSeniorCitizen)
+            {
+                snrDiscount = total * .1m;
+                total *= .9m;
+            }
+
+            // set the premiumDiscount variable based on
+            // the value of the isPremiumCustomer variable
+            if (isPremiumCustomer)
+            {
+                premiumDiscount = total * .1m;
+                total *= .9m;
+            }
+
+            lblResult.Text = $"Your Senior Citizen discount is {snrDiscount.ToString("C")} and your Premium Customer discount is {premiumDiscount.ToString("C")}";
+
             txtDiscountPercent.Text = discountPercent.ToString("P2"); // Percent format with 2 decimal places
             txtDiscountAmount.Text = discountAmount.ToString("C"); // Currency format
             txtTotal.Text = total.ToString("C");
